@@ -1,27 +1,57 @@
 import streamlit as st
-import time
 
-def heart_animation():
-    st.title("💖 Para o Yure 💖")
-    st.write("\n")
-    st.subheader("Te amo, Yure! 💕")
-    
-    heart = [
-        "  *****     *****  ",
-        "*******   *******",
-        " *************** ",
-        "   ***********   ",
-        "     *******     ",
-        "       ***       ",
-        "        *        "
-    ]
-    
-    heart_placeholder = st.empty()
-    
-    for i in range(10):
-        heart_text = "\n".join(heart)
-        heart_placeholder.markdown(f"<pre>{heart_text}</pre>", unsafe_allow_html=True)
-        time.sleep(0.5)
-        heart[2] = " " + heart[2] + " " if i % 2 == 0 else heart[2][1:-1]
+# HTML e CSS para a animação
+html_code = """
+<style>
+@keyframes juntar {
+    0% { transform: translateX(-50px); }
+    50% { transform: translateX(0px); }
+}
 
-heart_animation()
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.heart {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    display: inline-block;
+    animation: juntar 2s ease-in-out forwards;
+}
+
+.heart::before,
+.heart::after {
+    content: "";
+    width: 50px;
+    height: 80px;
+    position: absolute;
+    background-color: red;
+    border-radius: 50px 50px 0 0;
+    top: 0;
+}
+
+.heart::before {
+    left: 50px;
+    transform: rotate(-45deg);
+    background-color: blue;
+}
+
+.heart::after {
+    left: 0;
+    transform: rotate(45deg);
+    background-color: red;
+}
+</style>
+
+<div class="container">
+    <div class="heart"></div>
+</div>
+"""
+
+# Exibir a animação no Streamlit
+st.markdown(html_code, unsafe_allow_html=True)
+st.markdown("<h2 style='text-align: center;'>Você e eu, juntos para sempre! 💙❤️</h2>", unsafe_allow_html=True)
